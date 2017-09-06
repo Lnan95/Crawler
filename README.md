@@ -23,4 +23,12 @@ dd373&女王镇专用，十分简易；
 
 简化代码；
 
-修正绘图时文本重叠的情况
+修正绘图时文本重叠的情况；
+
+增加图片关闭，减少内存消耗
+
+<br />
+
+# 示例
+
+![image](https://github.com/Lnan95/Crawler/raw/master/figure/0906.png)
