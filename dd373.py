@@ -11,7 +11,6 @@ import pandas as pd
 
 # 初始参数
 frequency = 1 # 绘图频率
-sleep_time = 60 # 每60s更新一次数据
 alpha = 0.5 # 大商和散户的权重
 
 # 汉字输出
@@ -53,17 +52,17 @@ def find_prices(url):
 count = 0
 while(1):
     count += 1
-    main_price = 0
-    other_price = 0
+    main_price = []
+    other_price = []
     price = find_prices(url)
     for i in range(18):
         if i <= 2:
-            main_price += float(price[i][3:8])
+            main_price.append(float(price[i][3:8]))
         else:
-            other_price += float(price[i][3:8])
+            other_price.append(float(price[i][3:8]))
     history_time.append(datetime.datetime.now())
-    history_main_price.append(np.mean(main_price)/3)
-    history_other_price.append(np.mean(other_price)/15)
+    history_main_price.append(np.median(main_price))
+    history_other_price.append(np.median(other_price))
     mix = np.dot(history_main_price, alpha) + np.dot(history_other_price, 1-alpha)
 
     print("时间: "+ datetime.datetime.now().strftime('%m-%d %H:%M'))
@@ -74,7 +73,7 @@ while(1):
     #画图 & 数据保存
     if((count % frequency) ==0):
         data = pd.DataFrame({'时间': history_time, '大商价格': history_main_price, '散户价格': history_other_price})
-        data.to_csv('data.csv')
+        data.to_csv(datetime.datetime.now().strftime('%m%d')+'.csv') # 按日期保存
 
         plt.figure(figsize=(20, 5))
         plt.suptitle(u"DD373冒险岛2女王镇货币价格：{}".format(datetime.datetime.now().strftime('%m-%d'))
