@@ -11,6 +11,7 @@ import pandas as pd
 
 # 初始参数
 frequency = 1 # 绘图频率
+sleep_time = 120 # 每120s更新一次数据
 alpha = 0.5 # 大商和散户的权重
 
 # 汉字输出
