@@ -60,13 +60,13 @@ while(1):
     history_other_price.append(np.mean(other_price)/15)
     mix = np.dot(history_main_price, 0.6) + np.dot(history_other_price, 0.4)
 
-    print("时间: "+ datetime.datetime.now().strftime('%m-%d %H:%M')+"\n")
+    print("时间: "+ datetime.datetime.now().strftime('%m-%d %H:%M'))
     print("综合价格: {}".format(mix[-1]))
     print("大商价格: {}".format(history_main_price[-1]))
-    print("散户价格: {}".format(history_other_price[-1]))
+    print("散户价格: {}".format(history_other_price[-1])+"\n")
 
     #画图 & 数据保存
-    if((count % 10) ==0):
+    if((count % 3) ==0):
         data = pd.DataFrame({'时间': history_time, '大商价格': history_main_price, '散户价格': history_other_price})
         data.to_csv('data.csv')
 
@@ -83,12 +83,12 @@ while(1):
         plt.annotate("1:{}w".format(format(mix[-1],"0.2f")) % mix[-1],xy=(history_time[-1],mix[-1]),xycoords='data',xytext=(+20,-20),textcoords='offset points',
                  arrowprops=dict(arrowstyle='->',connectionstyle='arc3,rad=-0.2'))
         # 最大值&最小值
-        max_index = history_time.index(max(history_time))
-        plt.annotate("1:{}w".format(format(mix[max_index],"0.2f")) % mix[max_index],xy=(history_time[max_index],mix[max_index]),xycoords='data',xytext=(-20,+20),textcoords='offset points',
-                 arrowprops=dict(arrowstyle='->',connectionstyle='arc3,rad=-0.2'))
-        min_index = history_time.index(min(history_time))
-        plt.annotate("1:{}w".format(format(mix[min_index],"0.2f")) % mix[min_index],xy=(history_time[min_index],mix[min_index]),xycoords='data',xytext=(+20,-20),textcoords='offset points',
-                     arrowprops=dict(arrowstyle='->',connectionstyle='arc3,rad=-0.2'))
+        max_index = history_main_price.index(max(history_main_price))
+        plt.annotate("max: 1:{}w".format(format(mix[max_index],"0.2f")) % mix[max_index],xy=(history_time[max_index],mix[max_index]),xycoords='data',xytext=(-20,+20),textcoords='offset points',
+                 color='red',arrowprops=dict(arrowstyle='->',color='red',connectionstyle='arc3,rad=-0.2'))
+        min_index = history_main_price.index(min(history_main_price))
+        plt.annotate("min: 1:{}w".format(format(mix[min_index],"0.2f")) % mix[min_index],xy=(history_time[min_index],mix[min_index]),xycoords='data',xytext=(+20,-20),textcoords='offset points',
+                     color='green',arrowprops=dict(arrowstyle='->',color='green',connectionstyle='arc3,rad=-0.2'))
 
         plt.legend(loc='best')
 
