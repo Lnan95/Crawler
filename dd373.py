@@ -100,6 +100,7 @@ while(1):
         fig = plt.gcf()
         tmp = datetime.datetime.now().strftime('%m%d')+ '.png'
         fig.savefig(tmp)
+        plt.close()
 
     time.sleep(sleep_time)
 
