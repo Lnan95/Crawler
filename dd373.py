@@ -106,6 +106,7 @@ while(1):
         plt.text(x_axis[0], mix[0]+0.35, "1:{}w".format(format(mix[0],"0.2f")))
         plt.text(x_axis[-1], mix[-1]+0.35, "1:{}w".format(format(mix[-1],"0.2f")))
         # 最大值&最小值
+
         max_index = mix.argmax()
         plt.annotate("max: 1:{}w".format(format(mix[max_index],"0.2f")) % mix[max_index],xy=(x_axis[max_index],mix[max_index]),xycoords='data',xytext=(-30,+30),textcoords='offset points',
                  color='red',arrowprops=dict(arrowstyle='->',color='red',connectionstyle='arc3,rad=-0.2'))
@@ -114,7 +115,16 @@ while(1):
                      color='green',arrowprops=dict(arrowstyle='->',color='green',connectionstyle='arc3,rad=-0.2'))
 
         plt.legend(loc='upper left')
-        plt.xticks(np.arange(length), history_time)
+        if length>20:
+            tmp = length/10  # 分为十份
+            tmp2 = [k * tmp for k in range(10)] # 十份的坐标
+            tmp2.append(length - 1)
+            tmp2 = np.array(tmp2).round()
+            plt.xticks(tmp2, history_time.ravel()[list(tmp2)])
+        else:
+            plt.xticks(np.arange(length), history_time)
+
+
 
         # 保存图片
         fig = plt.gcf()
