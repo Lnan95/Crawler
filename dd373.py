@@ -115,6 +115,8 @@ while(1):
                      color='green',arrowprops=dict(arrowstyle='->',color='green',connectionstyle='arc3,rad=-0.2'))
 
         plt.legend(loc='upper left')
+
+        # 使x轴标签不要那么密集
         if length>20:
             tmp = length/10  # 分为十份
             tmp2 = [k * tmp for k in range(10)] # 十份的坐标
