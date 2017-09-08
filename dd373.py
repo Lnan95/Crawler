@@ -117,9 +117,9 @@ while(1):
         plt.legend(loc='upper left')
 
         # 使x轴标签不要那么密集
-        if length>20:
-            tmp = length/10  # 分为十份
-            tmp2 = [k * tmp for k in range(10)] # 十份的坐标
+        if length>40:
+            tmp = length/20  # 分为二十份
+            tmp2 = [k * tmp for k in range(20)] # 十份的坐标
             tmp2.append(length - 1)
             tmp2 = np.array(tmp2).round()
             plt.xticks(tmp2, history_time.ravel()[list(tmp2)])
